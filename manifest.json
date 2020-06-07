@@ -1,0 +1,21 @@
+{
+  "name": "Prosperous Universe Dump",
+  "version": "0.0.1",
+  "description": "Prosperous Universe Dump",
+  "permissions": ["activeTab", "tabs"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.prosperousuniverse.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "browser_action": {
+    "default_title": "Dump state"
+  },
+  "manifest_version": 2,
+  "devtools_page": "devtools.html"
+}
