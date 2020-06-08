@@ -29,6 +29,7 @@
       chrome.downloads.download({
         filename: "pu-dump.json",
         url: url,
+        conflictAction: "overwrite",
       });
     } else {
       log(
