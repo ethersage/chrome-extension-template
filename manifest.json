@@ -1,6 +1,6 @@
 {
   "name": "Prosperous Universe Dump",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Prosperous Universe Dump",
   "permissions": ["activeTab", "background", "downloads", "tabs"],
   "background": {

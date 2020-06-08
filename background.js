@@ -2,6 +2,7 @@
   const debug = (msg) => console.debug(`[PU DUMP]: ${msg}`);
   const log = (msg) => console.log(`[PU DUMP]: ${msg}`);
   let data;
+  let url;
 
   log("Loading...");
 
@@ -9,21 +10,25 @@
     debug("Message received:", JSON.stringify(message));
 
     if (message.source === "pu-dump") {
-      data = JSON.stringify(message.data);
-      const size = data.length * 16;
-      debug(`Dump complete: stored ${size} bytes.`);
+      data = message.data;
+      debug("Dump complete.");
     }
   });
   log("Listening for messages from content script.");
 
   chrome.browserAction.onClicked.addListener(() => {
-    if (data && data.length) {
-      const size = data.length * 16;
-      debug(`Download requested: payload ${size} bytes.`);
+    if (data) {
+      debug(`Download requested.`);
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], {
+        type: "application/json",
+      });
+      URL.revokeObjectURL(url);
+      url = URL.createObjectURL(blob);
 
       chrome.downloads.download({
         filename: "pu-dump.json",
-        url: `data:application/json,${data}`,
+        url: url,
       });
     } else {
       log(
